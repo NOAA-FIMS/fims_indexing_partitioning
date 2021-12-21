@@ -361,7 +361,6 @@ public:
      */
     void initialize_subpopulations(const size_t& nsexes) {
         this->nsexes_ = nsexes;
-        this->areas_ = areas;
 
         Rcpp::list it;
 
