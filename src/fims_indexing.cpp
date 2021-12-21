@@ -382,7 +382,7 @@ public:
      * @param areas
      */
     void initialize_subpopulations(const size_t& nsexes,
-            Rcpp::list areas) {
+            Rcpp::List areas) {
         this->nsexes_ = nsexes;
         this->areas_ = areas;
 
