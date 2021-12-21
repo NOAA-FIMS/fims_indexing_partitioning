@@ -326,57 +326,65 @@ public:
     }
 };
 
+RCPP_EXPOSED_CLASS(population)
+
+RCPP_MODULE(fims) {
+    using namespace Rcpp;
+    class_<population >("population")
+    .method("evaulate_subpopulations",&population::evaulate_subpopulations);
+}
+
 /*
  * 
  */
-int main(int argc, char** argv) {
-    std::vector<double> ages = {1, 2, 3, 4, 5, 6, 7, 8};
-    size_t years = 30;
-    size_t seasons = 4;
+// int main(int argc, char** argv) {
+//     std::vector<double> ages = {1, 2, 3, 4, 5, 6, 7, 8};
+//     size_t years = 30;
+//     size_t seasons = 4;
 
-    std::vector<std::shared_ptr<area> > areas = {std::make_shared<area>(years, seasons, ages.size()),
-        std::make_shared<area>(years, seasons, ages.size()),
-        std::make_shared<area>(years, seasons, ages.size())};
+//     std::vector<std::shared_ptr<area> > areas = {std::make_shared<area>(years, seasons, ages.size()),
+//         std::make_shared<area>(years, seasons, ages.size()),
+//         std::make_shared<area>(years, seasons, ages.size())};
 
-    //1. Fixed Seasons Example.
+//     //1. Fixed Seasons Example.
 
-    //create a population with fixed seasons
-    population pop(years, seasons, ages.size(), ages);
-    pop.initialize_subpopulations(2, areas);
-    pop.evaulate_subpopulations();
-    pop.finalize();
-
-
-    //1. Variable Seasons Example.
-
-    //randomly generate a variable season matrix based on year
-    std::default_random_engine generator;
-    std::uniform_int_distribution<size_t> distribution(1, 4);
-
-    std::vector<std::vector<double> > season_offsets(years);
-    for (int y = 0; y < years; y++) {
-        std::cout << "year = " << y << "\n";
-        std::vector<double> seasons;
-
-        //randomly get the number of seasons for this year
-        size_t nseasons = distribution(generator);
-        for (int s = 0; s < nseasons; s++) {
-            //push back this season offset 
-            seasons.push_back((s + 1) / static_cast<double> (nseasons));
-            std::cout << seasons[s] << " ";
-        }
-        std::cout << std::endl;
-        //set the season offset vector for year y
-        season_offsets[y] = seasons;
-    }
-
-    //create a population with variable seasons
-    population pop2(years, season_offsets, ages.size());
-    pop2.initialize_subpopulations(2, areas);
-    pop2.evaulate_subpopulations();
-    pop2.finalize();
+//     //create a population with fixed seasons
+//     population pop(years, seasons, ages.size(), ages);
+//     pop.initialize_subpopulations(2, areas);
+//     pop.evaulate_subpopulations();
+//     pop.finalize();
 
 
-    return 0;
-}
+//     //1. Variable Seasons Example.
+
+//     //randomly generate a variable season matrix based on year
+//     std::default_random_engine generator;
+//     std::uniform_int_distribution<size_t> distribution(1, 4);
+
+//     std::vector<std::vector<double> > season_offsets(years);
+//     for (int y = 0; y < years; y++) {
+//         std::cout << "year = " << y << "\n";
+//         std::vector<double> seasons;
+
+//         //randomly get the number of seasons for this year
+//         size_t nseasons = distribution(generator);
+//         for (int s = 0; s < nseasons; s++) {
+//             //push back this season offset 
+//             seasons.push_back((s + 1) / static_cast<double> (nseasons));
+//             std::cout << seasons[s] << " ";
+//         }
+//         std::cout << std::endl;
+//         //set the season offset vector for year y
+//         season_offsets[y] = seasons;
+//     }
+
+//     //create a population with variable seasons
+//     population pop2(years, season_offsets, ages.size());
+//     pop2.initialize_subpopulations(2, areas);
+//     pop2.evaulate_subpopulations();
+//     pop2.finalize();
+
+
+//     return 0;
+// }
 
