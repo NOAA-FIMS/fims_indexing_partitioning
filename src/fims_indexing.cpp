@@ -374,7 +374,7 @@ public:
     }
 
     void add_area(area a) {
-        this->areas_.push_back(std::make_shared<area>(area));
+        this->areas_.push_back(std::make_shared<area>(a));
     }
 
     /**
