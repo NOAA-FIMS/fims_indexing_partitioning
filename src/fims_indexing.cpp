@@ -67,10 +67,10 @@ public:
         seasons_max_ = 0;
 
         //find the max season size in the time series
-        for (size_t i = 0; i < nyears; i++) {
-            this->seasons_max_ = std::max(this->seasons_max_, this->season_offsets_[i].size());
-            std::vector<double> temp = this->season_offsets_[i];
-        }
+//        for (size_t i = 0; i < nyears; i++) {
+//            this->seasons_max_ = std::max(this->seasons_max_, this->season_offsets_[i].size());
+//            std::vector<double> temp = this->season_offsets_[i];
+//        }
 
     }
 
