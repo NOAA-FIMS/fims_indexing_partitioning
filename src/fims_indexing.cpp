@@ -153,10 +153,6 @@ public:
     model_base(nyears, nseasons, nages) {
     }
 
-    area(const area& orig) :
-    model_base(orig.nyears_, orig.nseasons_, orig.nages_) {
-
-    }
 
 };
 
@@ -330,6 +326,7 @@ public:
     }
 
 #ifdef NATIVE_BUILD
+
     /**
      * initialize subpopulations, partition by sex and area.
      * 
@@ -353,6 +350,7 @@ public:
 
     }
 #endif
+
     /**
      * initialize subpopulations, partition by sex and area.
      * 
@@ -374,7 +372,9 @@ public:
     }
 
     void add_area(area a) {
-        this->areas_.push_back(std::make_shared<area>(a));
+        std::shared_ptr<area> area = std::make_shared<area>(a.nyears_, a.nseasons_, a.nages_);
+        area->object_id = a.object_id;
+        this->areas_.push_back(area);
     }
 
     /**
