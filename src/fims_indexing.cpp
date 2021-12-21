@@ -67,22 +67,14 @@ public:
         seasons_max_ = 0;
         std::cout << season_offsets.size() << std::endl;
         Rcpp::List::iterator it;
-        //        std::cout<<"here"<<std::endl;
-        //        //find the max season size in the time series
-        //        std::cout<<season_offsets.size()<<"\n";
+  
         for (it = season_offsets.begin(); it != season_offsets.end(); it++) {
 
-            //            this->seasons_max_ = std::max(this->seasons_max_, this->season_offsets_[i].size());
-//            std::cout << typeid((*it)).name() << std::endl;
-            
             std::vector<double> t = *it;
-            std::cout<<t.size()<<"\n";
-            //            std::vector<double> temp(t.size());
-            //            for (int j = 0; j < t.size(); j++) {
-            //                temp = t[i];
+            this->season_offsets_.push_back(t);
+
         }
-        ////            this->season_offsets_.push_back(t);
-        //        }
+
 
 
     }
