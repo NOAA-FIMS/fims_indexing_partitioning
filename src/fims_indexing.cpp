@@ -21,6 +21,7 @@
 #warning "compiling example"
 
 using namespace Rcpp;
+
 /**
  *Base class, holds common modeling information.
  */
@@ -52,9 +53,8 @@ public:
         }
 
     }
-    
-    
-      /**
+
+    /**
      * Constructor for variable season data.
      * 
      * @param nyears
@@ -62,18 +62,17 @@ public:
      * @param nages
      */
     model_base(size_t nyears, Rcpp::List season_offsets, size_t nages) :
-    nyears_(nyears),  nages_(nages) {
+    nyears_(nyears), nages_(nages) {
         this->object_id = model_base::id_g++;
         seasons_max_ = 0;
 
         //find the max season size in the time series
         for (size_t i = 0; i < nyears; i++) {
             this->seasons_max_ = std::max(this->seasons_max_, this->season_offsets_[i].size());
-            std::vector<double> temp =  this->season_offsets_[i];
+            std::vector<double> temp = this->season_offsets_[i];
         }
 
     }
-    
 
     /**
      * Constructor for fixed season data.
@@ -183,8 +182,8 @@ public:
     population_base(size_t nyears, std::vector<std::vector<double> > season_offsets, size_t nages) :
     model_base(nyears, season_offsets, nages) {//initialize base class
     }
-    
-       /**
+
+    /**
      * Constructor for variable season size.
      * 
      * @param nyears
@@ -231,8 +230,8 @@ public:
     population_base(nyears, season_offsets, nages) {//initialize base class
         some_derived_quantities.resize(nyears * this->seasons_max_ * nages);
     }
-    
-        /**
+
+    /**
      * Constructor for variable season size.
      * 
      * @param nyears
@@ -309,8 +308,8 @@ public:
     population(size_t nyears, std::vector<std::vector<double> > season_offsets, size_t nages) :
     population_base(nyears, season_offsets, nages) {//initialize base class
     }
-    
-        /**
+
+    /**
      * Constructor for variable season size.
      * 
      * @param nyears
@@ -390,8 +389,9 @@ RCPP_EXPOSED_CLASS(population)
 RCPP_MODULE(fims_indexing) {
     using namespace Rcpp;
     class_<population >("population")
-    .constructor<size_t, Rcpp::List, size_t>()
-    .method("evaluate_subpopulations",&population::evaulate_subpopulations);
+            .constructor<size_t, Rcpp::List, size_t>()
+            .method("evaluate_subpopulations", &population::evaulate_subpopulations);
+    function("say", say);
 }
 
 /*
