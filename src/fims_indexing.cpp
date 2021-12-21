@@ -362,7 +362,6 @@ public:
     void initialize_subpopulations(const size_t& nsexes) {
         this->nsexes_ = nsexes;
 
-
         for (int i = 0; i < this->nsexes_; i++) {
             for (int j = 0; j < this->areas_.size(); j++) {
 
