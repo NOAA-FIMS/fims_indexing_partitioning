@@ -1,4 +1,4 @@
-Package: fims_indexing_partitioning
+Package: FIP
 Type: Package
 Title: FIMS INDEXING
 Version: 0.1.0
