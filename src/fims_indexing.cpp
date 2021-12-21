@@ -358,45 +358,25 @@ public:
      * @param nsexes
      * @param areas
      */
-    void initialize_subpopulations(const size_t& nsexes,
-            const std::vector<std::shared_ptr<area> >& areas) {
-        this->nsexes_ = nsexes;
-        this->areas_ = areas;
-
-
-
-        for (int i = 0; i < this->nsexes_; i++) {
-            for (int j = 0; j < this->areas_.size(); j++) {
-                std::shared_ptr<subpopulation> sub_pop = std::make_shared<subpopulation>(this->nyears_, this->season_offsets_, this->nages_);
-                sub_pop->area_ = this->areas_[i];
-                this->subpopulation_[i].push_back(sub_pop);
-            }
-        }
-
-    }
-
-    /**
-     * initialize subpopulations, partition by sex and area.
-     * 
-     * @param nsexes
-     * @param areas
-     */
-    void initialize_subpopulations(const size_t& nsexes,
-            Rcpp::List areas) {
+    void initialize_subpopulations(const size_t& nsexes) {
         this->nsexes_ = nsexes;
         this->areas_ = areas;
 
         Rcpp::list it;
 
         for (int i = 0; i < this->nsexes_; i++) {
-            for (it = areas.begin(); it != areas.end(); it++) {
+            for (int j = 0; j < this->areas_.size(); j++) {
 
                 std::shared_ptr<subpopulation> sub_pop = std::make_shared<subpopulation>(this->nyears_, this->season_offsets_, this->nages_);
-                sub_pop->area_ = std::make_shared<area>(Rcpp::as<area>(*it)[0]);
+                sub_pop->area_ = this->areas_[j];
                 this->subpopulation_[i].push_back(sub_pop);
             }
         }
 
+    }
+
+    void add_area(area a) {
+        this->areas_.push_back(std::make_shared<area>(area));
     }
 
     /**
@@ -451,7 +431,8 @@ RCPP_MODULE(fims) {
     class_<population >("population")
             .constructor<size_t, Rcpp::List, size_t>()
             .method("evaluate_subpopulations", &population::evaulate_subpopulations)
-            .method("initialize_subpopulations", &population::initialize_subpopulations);
+            .method("initialize_subpopulations", &population::initialize_subpopulations)
+            .method("add_area", &population::add_area);
     class_<area >("area")
             .constructor<size_t, size_t, size_t>();
 }
