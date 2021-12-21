@@ -65,11 +65,11 @@ public:
     nyears_(nyears), nages_(nages) {
         this->object_id = model_base::id_g++;
         seasons_max_ = 0;
-
+        std::cout<<"here"<<std::endl;
         //find the max season size in the time series
         for (size_t i = 1; i <= nyears; i++) {
-            this->seasons_max_ = std::max(this->seasons_max_, this->season_offsets_[i].size());
-
+//            this->seasons_max_ = std::max(this->seasons_max_, this->season_offsets_[i].size());
+  std::cout<<i<<std::endl;
             std::vector<double> t = this->season_offsets_[i];
 //            std::vector<double> temp(t.size());
 //            for (int j = 0; j < t.size(); j++) {
