@@ -67,10 +67,16 @@ public:
         seasons_max_ = 0;
 
         //find the max season size in the time series
-//        for (size_t i = 0; i < nyears; i++) {
-//            this->seasons_max_ = std::max(this->seasons_max_, this->season_offsets_[i].size());
-//            std::vector<double> temp = this->season_offsets_[i];
-//        }
+        for (size_t i = 0; i < nyears; i++) {
+            this->seasons_max_ = std::max(this->seasons_max_, this->season_offsets_[i].size());
+
+            Rcpp::NumericVector t = this->season_offsets_[i];
+            std::vector<double> temp(t.size());
+            for (int j = 0; j < t.size(); j++) {
+                temp = t[i];
+            }
+            this->season_offsets_.push_back(temp);
+        }
 
     }
 
@@ -384,9 +390,8 @@ public:
     }
 };
 
-
-void say(){
-    std::cout<<"hi!";
+void say() {
+    std::cout << "hi!";
 }
 
 RCPP_EXPOSED_CLASS(population)
