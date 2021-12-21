@@ -154,7 +154,7 @@ public:
     }
 
     area(const area& orig) :
-    model_base(orig.nyears, orig.nseasons, orig.nages) {
+    model_base(orig.nyears_, orig.nseasons_, orig.nages_) {
 
     }
 
