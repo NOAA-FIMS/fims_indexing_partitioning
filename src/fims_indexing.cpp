@@ -332,7 +332,7 @@ RCPP_MODULE(fims) {
     using namespace Rcpp;
     class_<population >("population")
     .method("evaulate_subpopulations",&population::evaulate_subpopulations);
-}
+};
 
 /*
  * 
