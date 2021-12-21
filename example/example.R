@@ -1,4 +1,4 @@
-remotes::install_github("https://github.com/NOAA-FIMS/fims_indexing_partitioning.git")
+remotes::install_github("https://github.com/NOAA-FIMS/fims_indexing_partitioning.git", fforce = TRUE)
 
 library( Rcpp )
 library(FIP)
@@ -17,3 +17,4 @@ for(i in 1:nyears){
 
 population<-new(fims_indexing$population,  nyears, season_offsets, nage)
 fims_indexing$say()
+
