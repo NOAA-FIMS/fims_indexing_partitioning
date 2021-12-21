@@ -387,11 +387,11 @@ public:
 
 RCPP_EXPOSED_CLASS(population)
 
-RCPP_MODULE(fims) {
+RCPP_MODULE(fims_indexing) {
     using namespace Rcpp;
     class_<population >("population")
     .constructor<size_t, Rcpp::List, size_t>()
-    .method("evaulate_subpopulations",&population::evaulate_subpopulations);
+    .method("evaluate_subpopulations",&population::evaulate_subpopulations);
 }
 
 /*
