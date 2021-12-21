@@ -392,7 +392,7 @@ public:
             for (it = areas.begin(); it != areas.end(); it++) {
 
                 std::shared_ptr<subpopulation> sub_pop = std::make_shared<subpopulation>(this->nyears_, this->season_offsets_, this->nages_);
-                sub_pop->area_ = std::make_shared<area>(*it);
+                sub_pop->area_ = std::make_shared<area>(Rcpp::as<area>(*it));
                 this->subpopulation_[i].push_back(sub_pop);
             }
         }
