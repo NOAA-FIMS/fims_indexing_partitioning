@@ -65,9 +65,8 @@ public:
     nyears_(nyears), nages_(nages) {
         this->object_id = model_base::id_g++;
         seasons_max_ = 0;
-        std::cout << season_offsets.size() << std::endl;
         Rcpp::List::iterator it;
-  
+
         for (it = season_offsets.begin(); it != season_offsets.end(); it++) {
 
             std::vector<double> t = *it;
@@ -152,6 +151,11 @@ public:
 
     area(size_t nyears, size_t nseasons, size_t nages) :
     model_base(nyears, nseasons, nages) {
+    }
+
+    area(const area& orig) :
+    model_base(orig.nyears, orig.nseasons, orig.nages) {
+
     }
 
 };
@@ -349,6 +353,53 @@ public:
     }
 
     /**
+     * initialize subpopulations, partition by sex and area.
+     * 
+     * @param nsexes
+     * @param areas
+     */
+    void initialize_subpopulations(const size_t& nsexes,
+            const std::vector<std::shared_ptr<area> >& areas) {
+        this->nsexes_ = nsexes;
+        this->areas_ = areas;
+
+
+
+        for (int i = 0; i < this->nsexes_; i++) {
+            for (int j = 0; j < this->areas_.size(); j++) {
+                std::shared_ptr<subpopulation> sub_pop = std::make_shared<subpopulation>(this->nyears_, this->season_offsets_, this->nages_);
+                sub_pop->area_ = this->areas_[i];
+                this->subpopulation_[i].push_back(sub_pop);
+            }
+        }
+
+    }
+
+    /**
+     * initialize subpopulations, partition by sex and area.
+     * 
+     * @param nsexes
+     * @param areas
+     */
+    void initialize_subpopulations(const size_t& nsexes,
+            Rcpp::list areas) {
+        this->nsexes_ = nsexes;
+        this->areas_ = areas;
+
+        Rcpp::list it;
+
+        for (int i = 0; i < this->nsexes_; i++) {
+            for (it = areas.begin(); it != areas.end(); it++) {
+
+                std::shared_ptr<subpopulation> sub_pop = std::make_shared<subpopulation>(this->nyears_, this->season_offsets_, this->nages_);
+                sub_pop->area_ = std::make_shared<area>(*it);
+                this->subpopulation_[i].push_back(sub_pop);
+            }
+        }
+
+    }
+
+    /**
      * Loops through sex/area partitions and evaluates "some life history stuff"
      * based on modeling time step.
      * 
@@ -399,8 +450,10 @@ RCPP_MODULE(fims) {
     using namespace Rcpp;
     class_<population >("population")
             .constructor<size_t, Rcpp::List, size_t>()
-            .method("evaluate_subpopulations", &population::evaulate_subpopulations);
-    function("say", &say);
+            .method("evaluate_subpopulations", &population::evaulate_subpopulations)
+            .method("initialize_subpopulations", &population::initialize_subpopulations);
+    class_<area >("area")
+            .constructor<size_t, size_t, size_t>();
 }
 
 /*
