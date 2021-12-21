@@ -19,8 +19,8 @@
 #include <Rcpp.h>
 
 
-using namespace std;
 
+using namespace Rcpp;
 /**
  *Base class, holds common modeling information.
  */
