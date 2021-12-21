@@ -356,7 +356,6 @@ RCPP_EXPOSED_CLASS(population)
 RCPP_MODULE(fims) {
     using namespace Rcpp;
     class_<population >("population")
-    .constructor()
     .method("evaulate_subpopulations",&population::evaulate_subpopulations);
 }
 
