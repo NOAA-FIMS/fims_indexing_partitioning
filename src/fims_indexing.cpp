@@ -17,7 +17,7 @@
 #include <random>
 #include <RcppCommon.h>
 #include <Rcpp.h>
-
+#include <typeinfo>
 #warning "compiling example"
 
 using namespace Rcpp;
@@ -65,22 +65,25 @@ public:
     nyears_(nyears), nages_(nages) {
         this->object_id = model_base::id_g++;
         seasons_max_ = 0;
-        std::cout<<season_offsets.size()<<std::endl;
-//        std::cout<<"here"<<std::endl;
-//        //find the max season size in the time series
-//        std::cout<<season_offsets.size()<<"\n";
-        for (size_t i = 0; i < nyears; i++) {
-//            this->seasons_max_ = std::max(this->seasons_max_, this->season_offsets_[i].size());
-  std::cout<<i<<std::endl;
-            std::vector<double> t = this->season_offsets_[i];
-//            std::vector<double> temp(t.size());
-//            for (int j = 0; j < t.size(); j++) {
-//                temp = t[i];
-            }
-////            this->season_offsets_.push_back(t);
-//        }
+        std::cout << season_offsets.size() << std::endl;
+        Rcpp::List::iterator it;
+        //        std::cout<<"here"<<std::endl;
+        //        //find the max season size in the time series
+        //        std::cout<<season_offsets.size()<<"\n";
+        for (it = season_offsets.begin(); it != season_offsets.end(); it++) {
 
-        
+            //            this->seasons_max_ = std::max(this->seasons_max_, this->season_offsets_[i].size());
+            std::cout << typeid((*it).name()) << std::endl;
+            
+//            std::vector<double> t = this->season_offsets_[i];
+            //            std::vector<double> temp(t.size());
+            //            for (int j = 0; j < t.size(); j++) {
+            //                temp = t[i];
+        }
+        ////            this->season_offsets_.push_back(t);
+        //        }
+
+
     }
 
     /**
