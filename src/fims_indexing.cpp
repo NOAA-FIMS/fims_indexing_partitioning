@@ -18,7 +18,7 @@
 #include <RcppCommon.h>
 #include <Rcpp.h>
 
-
+#warning "compiling example"
 
 using namespace Rcpp;
 /**
