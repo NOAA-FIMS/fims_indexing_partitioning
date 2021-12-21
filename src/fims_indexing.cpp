@@ -326,7 +326,7 @@ public:
     }
 };
 
-RCPP_EXPOSED_CLASS(population)
+RCPP_EXPOSED_CLASS(population);
 
 RCPP_MODULE(fims) {
     using namespace Rcpp;
