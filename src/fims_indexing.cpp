@@ -384,6 +384,11 @@ public:
     }
 };
 
+
+void say(){
+    std::cout<<"hi!";
+}
+
 RCPP_EXPOSED_CLASS(population)
 
 RCPP_MODULE(fims_indexing) {
