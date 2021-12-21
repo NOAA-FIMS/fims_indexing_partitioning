@@ -76,6 +76,7 @@ public:
 //            std::cout << typeid((*it)).name() << std::endl;
             
             std::vector<double> t = *it;
+            std::cout<<t.size()<<"\n";
             //            std::vector<double> temp(t.size());
             //            for (int j = 0; j < t.size(); j++) {
             //                temp = t[i];
