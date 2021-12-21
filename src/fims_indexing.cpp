@@ -183,6 +183,17 @@ public:
     population_base(size_t nyears, std::vector<std::vector<double> > season_offsets, size_t nages) :
     model_base(nyears, season_offsets, nages) {//initialize base class
     }
+    
+       /**
+     * Constructor for variable season size.
+     * 
+     * @param nyears
+     * @param season_offsets
+     * @param nages
+     */
+    population_base(size_t nyears, Rcpp::List season_offsets, size_t nages) :
+    model_base(nyears, season_offsets, nages) {//initialize base class
+    }
 
 
 };
@@ -217,6 +228,18 @@ public:
      * @param nages
      */
     subpopulation(size_t nyears, std::vector<std::vector<double> > season_offsets, size_t nages) :
+    population_base(nyears, season_offsets, nages) {//initialize base class
+        some_derived_quantities.resize(nyears * this->seasons_max_ * nages);
+    }
+    
+        /**
+     * Constructor for variable season size.
+     * 
+     * @param nyears
+     * @param season_offsets
+     * @param nages
+     */
+    subpopulation(size_t nyears, Rcpp::List season_offsets, size_t nages) :
     population_base(nyears, season_offsets, nages) {//initialize base class
         some_derived_quantities.resize(nyears * this->seasons_max_ * nages);
     }
@@ -284,6 +307,17 @@ public:
      * @param nages
      */
     population(size_t nyears, std::vector<std::vector<double> > season_offsets, size_t nages) :
+    population_base(nyears, season_offsets, nages) {//initialize base class
+    }
+    
+        /**
+     * Constructor for variable season size.
+     * 
+     * @param nyears
+     * @param season_offsets
+     * @param nages
+     */
+    population(size_t nyears, Rcpp::List season_offsets, size_t nages) :
     population_base(nyears, season_offsets, nages) {//initialize base class
     }
 
@@ -356,6 +390,7 @@ RCPP_EXPOSED_CLASS(population)
 RCPP_MODULE(fims) {
     using namespace Rcpp;
     class_<population >("population")
+    .constructor<size_t, Rcpp::List, size_t,size_t>()
     .method("evaulate_subpopulations",&population::evaulate_subpopulations);
 }
 
