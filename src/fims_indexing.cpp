@@ -372,8 +372,9 @@ public:
     }
 
     void add_area(area a) {
-        std::shared_ptr<area> area = std::make_shared<area>(a.nyears_, a.nseasons_, a.nages_);
-        area->object_id = a.object_id;
+        area b = Rcpp::as<area>(a);
+        std::shared_ptr<area> area = std::make_shared<area>(b.nyears_, b.nseasons_, b.nages_);
+        area->object_id = b.object_id;
         this->areas_.push_back(area);
     }
 
