@@ -264,8 +264,6 @@ public:
 
     size_t nsexes_;
 
-    population(){
-    }
     /**
      * Constructor for fixed season size.
      * 
