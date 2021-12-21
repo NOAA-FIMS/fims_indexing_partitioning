@@ -329,6 +329,7 @@ public:
     population_base(nyears, season_offsets, nages) {//initialize base class
     }
 
+#ifdef NATIVE_BUILD
     /**
      * initialize subpopulations, partition by sex and area.
      * 
@@ -351,7 +352,7 @@ public:
         }
 
     }
-
+#endif
     /**
      * initialize subpopulations, partition by sex and area.
      * 
