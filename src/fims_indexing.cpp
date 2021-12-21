@@ -15,6 +15,9 @@
 #include <memory>
 #include <iostream>
 #include <random>
+#include <RcppCommon.h>
+#include <Rcpp.h>
+
 
 using namespace std;
 
@@ -326,13 +329,13 @@ public:
     }
 };
 
-RCPP_EXPOSED_CLASS(population);
+RCPP_EXPOSED_CLASS(population)
 
 RCPP_MODULE(fims) {
     using namespace Rcpp;
     class_<population >("population")
     .method("evaulate_subpopulations",&population::evaulate_subpopulations);
-};
+}
 
 /*
  * 
