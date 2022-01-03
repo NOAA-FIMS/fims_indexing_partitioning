@@ -1,0 +1,2 @@
+import(Rcpp)
+useDynLib(FIP, .registration = TRUE)
