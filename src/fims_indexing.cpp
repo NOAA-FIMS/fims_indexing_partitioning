@@ -441,7 +441,8 @@ RCPP_MODULE(fims) {
             .method("initialize_subpopulations", &population::initialize_subpopulations)
             .method("add_area", &population::add_area);
     class_<area >("area")
-            .constructor<size_t, size_t, size_t>();
+            .constructor<size_t, size_t, size_t>()
+            .field("id", area::object_id)
 }
 
 /*
