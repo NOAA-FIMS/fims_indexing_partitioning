@@ -148,13 +148,17 @@ size_t model_base::id_g = 0; //initialize the static id counter
  */
 class area : public model_base {
 public:
+    static std::map<size_t, area*> models;
+    typedef typename std::map<size_t, area*>::iterator area_iterator;
 
     area(size_t nyears, size_t nseasons, size_t nages) :
     model_base(nyears, nseasons, nages) {
+        area::models[this->object_id] = this;
     }
 
 
 };
+std::map<size_t, area*> area::models;
 
 /**
  * Base class for all population objects.
@@ -371,11 +375,15 @@ public:
 
     }
 
-    void add_area(area a) {
-        area b = Rcpp::as<area>(a);
-        std::shared_ptr<area> area = std::make_shared<area>(b.nyears_, b.nseasons_, b.nages_);
-        area->object_id = b.object_id;
-        this->areas_.push_back(area);
+    void add_area(int area_id) {
+
+        typename area::area_iterator it;
+
+        it = area::models.find(area_id);
+        if (it != area::models.end()) {
+            std::shared_ptr<area> area((*it).second);// = std::make_shared<area>(b.nyears_, b.nseasons_, b.nages_);
+            this->areas_.push_back(area);
+        }
     }
 
     /**
