@@ -372,7 +372,7 @@ public:
      */
     void initialize_subpopulations(const size_t& nsexes) {
         this->nsexes_ = nsexes;
-
+        std::cout<<"initializing subpopulations of "<<nsexes<<":\n\n";
         for (int i = 0; i < this->nsexes_; i++) {
             for (int j = 0; j < this->areas_.size(); j++) {
                 std::cout<<i<<" --- "<<j<<"\n";
