@@ -259,7 +259,7 @@ public:
     std::shared_ptr<area> area_;
 
     void calculate_some_life_history_1(size_t index) {
-        //std::cout << "doing some life history stuff at index " << index << std::endl;
+        std::cout << "doing some life history stuff at index " << index << std::endl;
         this->some_derived_quantities[index] = index;
     }
 
