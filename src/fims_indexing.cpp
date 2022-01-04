@@ -405,11 +405,15 @@ public:
         for (size_t i = 0; i < this->nsexes_; i++) {
             std::vector<std::shared_ptr<subpopulation> >&
                     sub_pops = this->subpopulation_[i];
-
+            std::cout<<"sex "<<i<<",  "<<std::flush;
             for (size_t j = 0; j < sub_pops.size(); j++) {
+                std::cout<<"sub_pop "<<j<<",  "<<std::flush;
                 for (size_t y = 0; y < this->nyears_; y++) {
+                    std::cout<<"years "<<y<<",  "<<std::flush;
                     for (size_t s = 0; s < this->get_seasons(y); s++) {
+                        std::cout<<"season "<<s<<",  "<<std::flush;
                         for (size_t a = 0; a < this->nages_; a++) {
+                            std::cout<<"age "<<a<<"  "<<std::flush;
                             size_t index = this->get_index(y, s, a);
                             sub_pops[j]->calculate_some_life_history_1(index);
                         }
@@ -417,6 +421,7 @@ public:
                 }
 
             }
+            std::cout<<std::endl;
         }
     }
 
