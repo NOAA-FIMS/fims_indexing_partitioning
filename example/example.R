@@ -1,4 +1,4 @@
-remotes::install_github("https://github.com/NOAA-FIMS/fims_indexing_partitioning.git", fforce = TRUE)
+remotes::install_github("https://github.com/NOAA-FIMS/fims_indexing_partitioning.git")
 
 library( Rcpp )
 library(FIP)
@@ -14,7 +14,9 @@ for(i in 1:nyears){
   offset<-c(1,2,3,4)
   season_offsets[[i]]<-offset/4
 }
-
+area<-new(fims_indexing$area, nyears, )
 population<-new(fims_indexing$population,  nyears, season_offsets, nage)
 fims_indexing$say()
-
+population$add_area(area$id())
+show(area)
+print(area$id)

@@ -370,7 +370,7 @@ public:
 
         for (int i = 0; i < this->nsexes_; i++) {
             for (int j = 0; j < this->areas_.size(); j++) {
-
+                std::cout<<i<<" --- "<<j<<"\n";
                 std::shared_ptr<subpopulation> sub_pop = std::make_shared<subpopulation>(this->nyears_, this->season_offsets_, this->nages_);
                 sub_pop->area_ = this->areas_[j];
                 this->subpopulation_[i].push_back(sub_pop);
