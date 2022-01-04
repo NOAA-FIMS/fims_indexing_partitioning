@@ -155,13 +155,13 @@ public:
     model_base(nyears, nseasons, nages) {
         area::models[this->object_id] = this;
     }
-    
+
     area(size_t nyears, Rcpp::List season_offsets, size_t nages) :
     model_base(nyears, season_offsets, nages) {
+        area::models[this->object_id] = this;
     }
 
-    
-    size_t id(){
+    size_t id() {
         return this->object_id;
     }
 
@@ -372,10 +372,10 @@ public:
      */
     void initialize_subpopulations(const size_t& nsexes) {
         this->nsexes_ = nsexes;
-        std::cout<<"initializing subpopulations of "<<nsexes<<":\n\n";
+        std::cout << "initializing subpopulations of " << nsexes << ":\n\n";
         for (int i = 0; i < this->nsexes_; i++) {
             for (int j = 0; j < this->areas_.size(); j++) {
-                std::cout<<i<<" --- "<<j<<"\n";
+                std::cout << i << " --- " << j << "\n";
                 std::shared_ptr<subpopulation> sub_pop = std::make_shared<subpopulation>(this->nyears_, this->season_offsets_, this->nages_);
                 sub_pop->area_ = this->areas_[j];
                 this->subpopulation_[i].push_back(sub_pop);
@@ -390,7 +390,7 @@ public:
 
         it = area::models.find(area_id);
         if (it != area::models.end()) {
-            std::shared_ptr<area> area((*it).second);// = std::make_shared<area>(b.nyears_, b.nseasons_, b.nages_);
+            std::shared_ptr<area> area((*it).second); // = std::make_shared<area>(b.nyears_, b.nseasons_, b.nages_);
             this->areas_.push_back(area);
         }
     }
@@ -444,13 +444,13 @@ RCPP_EXPOSED_CLASS(population)
 
 RCPP_MODULE(fims) {
     using namespace Rcpp;
-    
+
     class_<population >("population")
             .constructor<size_t, Rcpp::List, size_t>()
             .method("evaluate_subpopulations", &population::evaulate_subpopulations)
             .method("initialize_subpopulations", &population::initialize_subpopulations)
             .method("add_area", &population::add_area);
-    
+
     class_<area >("area")
             .constructor<size_t, Rcpp::List, size_t>()
             .method("id", &area::id);
