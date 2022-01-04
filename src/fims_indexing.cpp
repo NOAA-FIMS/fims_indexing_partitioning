@@ -156,6 +156,11 @@ public:
         area::models[this->object_id] = this;
     }
     
+    area(size_t nyears, Rcpp::List season_offsets, size_t nages) :
+    model_base(nyears, season_offsets, nages) {
+    }
+
+    
     size_t id(){
         return this->object_id;
     }
@@ -447,7 +452,7 @@ RCPP_MODULE(fims) {
             .method("add_area", &population::add_area);
     
     class_<area >("area")
-            .constructor<size_t, size_t, size_t>()
+            .constructor<size_t, Rcpp::List, size_t>()
             .method("id", &area::id);
 }
 
