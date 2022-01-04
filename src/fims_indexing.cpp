@@ -442,7 +442,7 @@ RCPP_MODULE(fims) {
             .method("add_area", &population::add_area);
     class_<area >("area")
             .constructor<size_t, size_t, size_t>()
-            .field("id", &area::object_id)
+            .field("id", &area::object_id);
 }
 
 /*
