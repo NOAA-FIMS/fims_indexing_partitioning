@@ -155,6 +155,10 @@ public:
     model_base(nyears, nseasons, nages) {
         area::models[this->object_id] = this;
     }
+    
+    size_t id(){
+        return this->object_id
+    }
 
 
 };
@@ -435,14 +439,16 @@ RCPP_EXPOSED_CLASS(population)
 
 RCPP_MODULE(fims) {
     using namespace Rcpp;
+    
     class_<population >("population")
             .constructor<size_t, Rcpp::List, size_t>()
             .method("evaluate_subpopulations", &population::evaulate_subpopulations)
             .method("initialize_subpopulations", &population::initialize_subpopulations)
             .method("add_area", &population::add_area);
+    
     class_<area >("area")
             .constructor<size_t, size_t, size_t>()
-            .field("id", &area::object_id);
+            .method("id", &area::id());
 }
 
 /*
