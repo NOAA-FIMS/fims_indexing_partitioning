@@ -157,7 +157,7 @@ public:
     }
     
     size_t id(){
-        return this->object_id
+        return this->object_id;
     }
 
 
@@ -448,7 +448,7 @@ RCPP_MODULE(fims) {
     
     class_<area >("area")
             .constructor<size_t, size_t, size_t>()
-            .method("id", &area::id());
+            .method("id", &area::id);
 }
 
 /*
